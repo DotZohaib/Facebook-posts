@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+
+<body>
+  <div style="text-align: center; display: flex; justify-content: space-between;" id="container">
+    <div id="profile">
+      <img style="width: 50px; height: 50px; border-radius: 50%;" src="/images/uploads/<%= user.image %>" alt="Profile Picture">
+      <h1>Hello <%= user.username %>!</h1>
+      <h3>Here Email: <%= user.email %>
+      </h3>
+
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" id="image">
+        <button type="submit">Upload</button>
+      </form>
+
+      <% if (user.image) { %>
+        <img style="width: 200px; height: 300px; margin-top: 50px; border-radius: 10px;"
+          src="/images/uploads/<%= user.image %>" alt="Profile Picture">
+        <% } else { %>
+          <p>No profile picture uploaded yet.</p>
+          <% } %>
+
+    </div>
+    <div  id="footer">
+      <h1>Hello <%= user.username %>!</h1>
+      <h3>Here Email:  <%= user.email %>
+      </h3>
+
+      <form style="margin-bottom: 50px;" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="image">
+        <button type="submit">Upload</button>
+      </form >
+
+      <% if (user) { %>
+        <% if (user.file) { %>
+          <% if (user.file.endsWith('.mp4') || user.file.endsWith('.mov')) { %>
+            <video width="250" height="350" margin-top="50px" border-radius="20px" controls>
+              <source src="/images/uploads/<%= user.file %>" type="video/mp4">  </video>
+            
+            <% } else { %>
+              <img style="width: 200px; height: 300px; margin-top: 50px; border-radius: 10px;"
+                src="/images/uploads/<%= user.file %>" alt="Profile Picture">
+              <% } %>
+                <% } else if (user.image) { %> <img
+                    style="width: 200px; height: 300px; margin-top: 50px; border-radius: 10px;"
+                    src="/images/uploads/<%= user.image %>" alt="Profile Picture">
+                  <% } else { %>
+                    <p>No file uploaded yet.</p>
+                    <% } %>
+                      <% } else { %>
+                        <p>Error: User data unavailable.</p>
+                        <% } %>
+
+    </div>
+  </div>
+
+</body>
+
+</html>
